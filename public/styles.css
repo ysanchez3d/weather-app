@@ -1,0 +1,199 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.8rem;
+  color: #444;
+}
+
+h1 {
+  font-size: 6rem;
+}
+
+h2 {
+  font-size: 3.6rem;
+}
+
+h3 {
+  font-size: 3rem;
+}
+
+.container {
+  width: 120rem;
+  margin: 0 auto;
+  padding: 4rem 3rem;
+}
+
+main {
+  display: flex;
+  gap: 5rem;
+  justify-content: space-between;
+}
+
+.saved-cities {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.saved-city {
+  border: 1px solid blue;
+  border-radius: 1.4rem;
+  width: 40rem;
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.4rem;
+}
+
+.header-temp {
+  font-size: 4rem;
+}
+
+.city-info {
+  display: flex;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+#search {
+  width: 40rem;
+  border: 1px solid #999;
+  color: 444;
+  border-radius: 1rem;
+  padding: 2rem 2rem;
+  font-size: 2rem;
+  margin-bottom: 4rem;
+  margin-top: 2rem;
+}
+
+.current-location {
+  text-align: center;
+  width: 100%;
+}
+
+.current-location h2 {
+  font-size: 4.5rem;
+}
+
+.current-location > p {
+  text-align: center;
+  font-size: 3rem;
+}
+
+p.curr-degree {
+  font-size: 9rem;
+}
+
+.forecast-hours {
+  width: 69rem;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+.forecast-hours,
+.forecast-days {
+  border: 1px solid #444;
+  padding: 2rem;
+  font-size: 3rem;
+  border-radius: 1.4rem;
+}
+
+.forecast-title {
+  border-bottom: 1px solid #999;
+  margin-right: -20px;
+  text-align: left;
+  font-size: 2.6rem;
+  padding-bottom: 1.3rem;
+}
+
+.forecast-title svg {
+  margin-right: 0.7rem;
+  margin-bottom: -0.7rem;
+}
+
+.hours {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+  overflow: scroll;
+  padding-top: 1rem;
+}
+
+.hour {
+  font-size: 2.4rem;
+}
+
+.hour-ampm {
+  font-size: 2rem;
+}
+
+.forecast-days {
+  padding-bottom: 0;
+}
+
+.forecast-days .forecast-title {
+  margin-right: 0;
+}
+
+.daily-forecast {
+  padding: 1rem;
+}
+
+.daily-forecast li {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #444;
+}
+
+.daily-forecast li:last-child {
+  border-bottom: none;
+}
+
+.forcast-icon {
+  width: 5rem;
+  height: 5rem;
+}
+
+input[name="slider"] {
+  -webkit-appearance: none;
+  width: 20rem;
+  height: 1.5rem;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+input[name="slider"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
+}
+
+input[name="slider"]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #04aa6d;
+  cursor: pointer;
+}
