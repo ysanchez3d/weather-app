@@ -4,3 +4,5 @@
 
 Weather App to practice JavaScript, API's, and my developing UI skills :P
 UI inspired by the iOS Weather App.
+
+**npm start to run the applicaion**

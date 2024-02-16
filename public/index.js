@@ -5,6 +5,7 @@ const currLocationDegree = document.getElementsByClassName("curr-degree")[0];
 const currentCondition = document.getElementsByClassName("curr-condition")[0];
 const current_high = document.getElementsByClassName("curr-h")[0];
 const current_low = document.getElementsByClassName("curr-l")[0];
+const dailyForecast = document.getElementsByClassName("daily-forecast")[0];
 
 //saved locations
 const savedCities = document.getElementsByClassName("saved-cities")[0];
@@ -39,11 +40,8 @@ const displaySavedLocations = () => {
     p1.classList.add("condition-text");
     p1.innerHTML = location.forecast["7days"][0].condition.text;
     const p2 = document.createElement("p");
-    p2.innerHTML = `H:<span class="high">${
-      location.forecast["7days"][0]["maxtemp_f"] + "&deg;"
-    }&deg;</span> L:<span class="low">${
-      location.forecast["7days"][0]["mintemp_f"] + "&deg;"
-    }&deg;</span>`;
+    p2.innerHTML = `H:<span class="high">${location.forecast["7days"][0]["maxtemp_f"]}&deg;
+      </span> L:<span class="low">${location.forecast["7days"][0]["mintemp_f"]}&deg;</span>`;
     ci.appendChild(p1);
     ci.appendChild(p2);
     sc.appendChild(ci);
@@ -70,11 +68,12 @@ searchBar.addEventListener("keyup", async (e) => {
     weatherData = data.currentLocationData;
     displayForecast();
     displayCurrentLocation();
+    searchBar.value = "";
   }
 });
 
-const getWeather = async (location) => {
-  const response = await fetch("/weather" + `?q=${location}`);
+const getWeather = async (location, savedLocations = false) => {
+  const response = await fetch("/weather" + `?q=${location}&savedLocations=${savedLocations}`);
   const data = await response.json();
   return data;
 };
@@ -102,15 +101,36 @@ const displayForecast = () => {
 const getGeoLocation = () => {
   navigator.geolocation.getCurrentPosition(async (pos) => {
     let location = `${pos.coords.latitude},${pos.coords.longitude}`;
-
-    const data = await getWeather(location);
+    console.log("location....", location)
+    const data = await getWeather(location, true);
     weatherData = data.currentLocationData;
     savedLocations = data.savedLocations;
     displayForecast();
     displayCurrentLocation();
+    displayDailyForecast();
     displaySavedLocations();
+    console.log(weatherData)
   });
   // console.log(location);
 };
+
+const displayDailyForecast = () => {
+
+  weatherData.forecast["7days"].forEach((day, i) => {
+    const li = document.createElement("li");
+    const html = `
+      <span class="forecast-day">${i === 0 ? "Today" : day["day_str"]}</span>
+      <img src=${"./images" + day.condition.icon} alt="" class="forcast-icon">
+      <div class="forecast-temp">
+        <span class="forecast-low">${day["mintemp_f"]}&deg;</span>
+        <input type="range" name="slider" id="slider" min="${day["mintemp_f"]}" max="${day["maxtemp_f"]}" value="${day["avgtmp_f"]}" disabled>
+        <span class="forecast-high">${day["maxtemp_f"]}&deg;</span>
+      </div>
+    `
+    li.innerHTML = html;
+    dailyForecast.appendChild(li);
+  })
+
+}
 
 getGeoLocation();

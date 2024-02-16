@@ -10,7 +10,13 @@ html {
 
 body {
   font-size: 1.8rem;
-  color: #444;
+  color: #222;
+  background: linear-gradient(
+    90deg,
+    rgba(73, 242, 149, 0.1),
+    rgba(243, 241, 110, 0.1),
+    rgba(73, 172, 242, 0.1)
+  );
 }
 
 h1 {
@@ -44,7 +50,7 @@ main {
 }
 
 .saved-city {
-  border: 1px solid blue;
+  border: 1px solid #444;
   border-radius: 1.4rem;
   width: 40rem;
   padding: 1rem;
@@ -68,13 +74,19 @@ main {
 
 #search {
   width: 40rem;
-  border: 1px solid #999;
+  border: 1px solid #555;
   color: 444;
   border-radius: 1rem;
   padding: 2rem 2rem;
   font-size: 2rem;
   margin-bottom: 4rem;
   margin-top: 2rem;
+  background-color: transparent;
+}
+
+#search:focus {
+  outline: none;
+  border-color: #111;
 }
 
 .current-location {
@@ -146,6 +158,10 @@ p.curr-degree {
   margin-right: 0;
 }
 
+.forecast-day {
+  min-width: 80px;
+}
+
 .daily-forecast {
   padding: 1rem;
 }
@@ -183,10 +199,10 @@ input[name="slider"] {
 input[name="slider"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: #04aa6d;
+  width: 6.5rem;
+  height: 1.5rem;
+  border-radius: 2rem;
+  background: linear-gradient(to right, rgb(109, 219, 232), rgb(231, 150, 21));
   cursor: pointer;
 }
 

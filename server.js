@@ -10,23 +10,32 @@ const querystring = require("node:querystring");
 const axios = require("axios");
 const exp = require("node:constants");
 const { json } = require("body-parser");
-let gotSavedLocations = false;
+let loadedSavedLocations = false;
 
 app.use(express.static("public"));
 app.use(express.json());
 
 app.get("/weather", async (req, res) => {
   const query = req.query.q;
+  console.log("queryyyyyy", req.query)
+
   const response = await getWeatherData(query);
   const currentLocationData = sanitizeData(response);
+  const needSavedLocations = req.query.savedLocations;
 
-  if (!gotSavedLocations) {
-    const savedLocationData = await getSavedLocations(savedLocations);
-    gotSavedLocations = true;
-    res.send(JSON.stringify({ currentLocationData, savedLocations }));
-  } else {
-    res.send(JSON.stringify({ currentLocationData }));
+  if (!loadedSavedLocations) {
+    await getSavedLocations(savedLocations);
+    loadedSavedLocations = true;
   }
+
+  if (needSavedLocations) {
+    res.end(JSON.stringify({ currentLocationData, savedLocations }));
+  } else {
+    res.end(JSON.stringify({ currentLocationData }));
+  }
+
+
+
 });
 
 const queryParams = {
@@ -108,21 +117,17 @@ const parseIconPath = (path) => {
 };
 
 const parseDateString = (date) => {
-  return new Date(date).toString().split(" ")[0];
+  let today = new Date(date)
+  let nextDay = new Date(today.getTime() + (24 * 60 * 60 * 1000));
+  return nextDay.toString().split(" ")[0];
 };
 
 const getWeatherData = async (location) => {
   queryParams.q = location;
   const encoded = querystring.encode(queryParams);
+  console.log(encoded);
   const response = await axios.get(API_URL + encoded);
-  // console.log(response.data);
   return response.data;
-  // .then((res) => {
-  //   return res.data;
-  // })
-  // .catch((err) => {
-  //   console.log(err);
-  // });
 };
 
 let savedLocations = ["Las Vegas", "New York", "London", "Paris"];
@@ -132,6 +137,7 @@ const getSavedLocations = async (locations) => {
     const response = await getWeatherData(locations[i]);
     savedLocations[i] = sanitizeData(response);
   }
+
   return savedLocations;
 };
 
